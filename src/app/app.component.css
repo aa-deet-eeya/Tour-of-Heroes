@@ -1,0 +1,14 @@
+.app-wrapper {
+  width: 80%;
+  /* padding: 1rem; */
+  margin: 2rem;
+}
+
+.title {
+  padding: 0 2rem;
+}
+
+.heroes-wrapper {
+  border: 1px solid gray;
+  border-radius: 1rem;
+}
