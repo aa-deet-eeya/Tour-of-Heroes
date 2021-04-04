@@ -1,22 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { HeroService } from '../hero.service';
+import { MessageService } from '../message.service';
 
 interface Hero {
   id: number;
   name: string;
 }
-
-const HEROES: Hero[] = [
-  { id: 11, name: 'Dr Nice' },
-  { id: 12, name: 'Narco' },
-  { id: 13, name: 'Bombasto' },
-  { id: 14, name: 'Celeritas' },
-  { id: 15, name: 'Magneta' },
-  { id: 16, name: 'RubberMan' },
-  { id: 17, name: 'Dynama' },
-  { id: 18, name: 'Dr IQ' },
-  { id: 19, name: 'Magma' },
-  { id: 20, name: 'Tornado' },
-];
 
 @Component({
   selector: 'app-heroes',
@@ -24,13 +13,21 @@ const HEROES: Hero[] = [
   styleUrls: ['./heroes.component.css'],
 })
 export class HeroesComponent implements OnInit {
-  heroes = HEROES;
+  heroes : Hero[] = [];
   selectedHero?: Hero;
+  
+  constructor(private heroService : HeroService, private msgService : MessageService) {}
+
   onSelect(hero: Hero): void {
     this.selectedHero = hero;
+    this.msgService.add(`Heroes Component: Selected hero id=${hero.id}`)
   }
 
-  constructor() {}
-
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.getHeroes();
+  }
+  
+  getHeroes() : void {
+    this.heroService.getHeroes().subscribe(result=> this.heroes = result)
+  }
 }
